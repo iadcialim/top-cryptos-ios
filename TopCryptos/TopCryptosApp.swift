@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Networking
 
 @main
 struct TopCryptosApp: App {
@@ -17,6 +18,7 @@ struct TopCryptosApp: App {
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
+            let iad = Iad()
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
             fatalError("Could not create ModelContainer: \(error)")

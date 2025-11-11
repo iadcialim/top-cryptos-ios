@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E2A2126D2EC35F450038023E /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = E2A2126C2EC35F450038023E /* Networking */; };
+		E2A2126F2EC35F450038023E /* Cryptos in Frameworks */ = {isa = PBXBuildFile; productRef = E2A2126E2EC35F450038023E /* Cryptos */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E2A2121F2EC353E60038023E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A2126D2EC35F450038023E /* Networking in Frameworks */,
+				E2A2126F2EC35F450038023E /* Cryptos in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,7 @@
 				E2A212112EC353E50038023E /* TopCryptos */,
 				E2A212212EC353E60038023E /* TopCryptosTests */,
 				E2A2122B2EC353E60038023E /* TopCryptosUITests */,
+				E2A212502EC35BB90038023E /* Frameworks */,
 				E2A212102EC353E50038023E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +98,13 @@
 				E2A212282EC353E60038023E /* TopCryptosUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E2A212502EC35BB90038023E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +127,8 @@
 			);
 			name = TopCryptos;
 			packageProductDependencies = (
+				E2A2126C2EC35F450038023E /* Networking */,
+				E2A2126E2EC35F450038023E /* Cryptos */,
 			);
 			productName = TopCryptos;
 			productReference = E2A2120F2EC353E50038023E /* TopCryptos.app */;
@@ -195,6 +212,10 @@
 			);
 			mainGroup = E2A212062EC353E50038023E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E2A2126A2EC35E970038023E /* XCLocalSwiftPackageReference "Core/Networking" */,
+				E2A2126B2EC35F220038023E /* XCLocalSwiftPackageReference "Feature/Cryptos" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E2A212102EC353E50038023E /* Products */;
 			projectDirPath = "";
@@ -607,6 +628,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		E2A2126A2EC35E970038023E /* XCLocalSwiftPackageReference "Core/Networking" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Core/Networking;
+		};
+		E2A2126B2EC35F220038023E /* XCLocalSwiftPackageReference "Feature/Cryptos" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Feature/Cryptos;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2A2126C2EC35F450038023E /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A2126A2EC35E970038023E /* XCLocalSwiftPackageReference "Core/Networking" */;
+			productName = Networking;
+		};
+		E2A2126E2EC35F450038023E /* Cryptos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A2126B2EC35F220038023E /* XCLocalSwiftPackageReference "Feature/Cryptos" */;
+			productName = Cryptos;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E2A212072EC353E50038023E /* Project object */;
 }
