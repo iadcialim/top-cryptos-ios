@@ -51,11 +51,27 @@ The application follows MVVM + Clean Architecture principles with a modular pack
 
 ## Running Unit Tests
 
-### Test Networking Module
+### Test Networking Module (CLI)
+
+Navigate to the Networking module and run tests:
 
 ```bash
 cd Core/Networking
 swift test
+```
+
+This will execute all Networking module tests including:
+- NetworkConfiguration tests
+- NetworkSessionFactory tests
+- NetworkError tests
+
+### Test Cryptos Module (CLI)
+
+Navigate to the Cryptos module and run tests using xcodebuild:
+
+```bash
+cd Feature/Cryptos
+xcodebuild test -scheme Cryptos -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
 ```
 
 ## Testing Cache Logic
