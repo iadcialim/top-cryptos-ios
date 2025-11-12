@@ -29,7 +29,7 @@ struct TopCryptosApp: App {
         let networkConfig = NetworkConfiguration.coinMarketCap(apiKey: apiKey)
 
         // Session creation
-        let cacheConfig = CacheConfiguration.testing // change for different expiry
+        let cacheConfig = CacheConfiguration.default // change for different expiry
         let session = CryptoSessionFactory.createSession(
             cacheConfiguration: cacheConfig,
             enableLogging: true
