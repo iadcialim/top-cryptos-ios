@@ -3,13 +3,15 @@ import SwiftUI
 /// Main view for displaying the list of top cryptocurrencies
 public struct CryptoListView: View {
     @State private var viewModel: CryptoListViewModel
+    @Bindable var coordinator: CryptoCoordinator
 
-    public init(viewModel: CryptoListViewModel) {
+    public init(viewModel: CryptoListViewModel, coordinator: CryptoCoordinator) {
         self._viewModel = State(initialValue: viewModel)
+        self.coordinator = coordinator
     }
 
     public var body: some View {
-        NavigationStack {
+        NavigationStack(path: $coordinator.path) {
             ZStack {
                 if viewModel.isLoading && viewModel.cryptocurrencies.isEmpty {
                     ProgressView("Loading...")
@@ -30,7 +32,7 @@ public struct CryptoListView: View {
 
                         Button("Retry") {
                             Task {
-                                await viewModel.loadCryptocurrencies()
+                                await viewModel.loadCryptos()
                             }
                         }
                         .buttonStyle(.borderedProminent)
@@ -40,6 +42,10 @@ public struct CryptoListView: View {
                         List {
                             ForEach(viewModel.cryptocurrencies) { crypto in
                                 CryptoRowView(Crypto: crypto)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        coordinator.showDetails(for: crypto)
+                                    }
                             }
                         }
                         .listStyle(.plain)
@@ -59,9 +65,12 @@ public struct CryptoListView: View {
                 }
             }
             .navigationTitle("Top Cryptos")
+            .navigationDestination(for: CryptoDestination.self) { destination in
+                coordinator.view(for: destination)
+            }
             .task {
                 if viewModel.cryptocurrencies.isEmpty {
-                    await viewModel.loadCryptocurrencies()
+                    await viewModel.loadCryptos()
                 }
             }
         }

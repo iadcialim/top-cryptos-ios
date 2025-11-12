@@ -4,17 +4,20 @@ import SwiftUI
 
 #Preview("Loading State") {
     @Previewable @State var viewModel = CryptoListViewPreviewHelper.loadingViewModel()
-    return CryptoListView(viewModel: viewModel)
+    @Previewable @State var coordinator = CryptoCoordinator()
+    return CryptoListView(viewModel: viewModel, coordinator: coordinator)
 }
 
 #Preview("Success State") {
     @Previewable @State var viewModel = CryptoListViewPreviewHelper.successViewModel()
-    return CryptoListView(viewModel: viewModel)
+    @Previewable @State var coordinator = CryptoCoordinator()
+    return CryptoListView(viewModel: viewModel, coordinator: coordinator)
 }
 
 #Preview("Error State") {
     @Previewable @State var viewModel = CryptoListViewPreviewHelper.errorViewModel()
-    return CryptoListView(viewModel: viewModel)
+    @Previewable @State var coordinator = CryptoCoordinator()
+    return CryptoListView(viewModel: viewModel, coordinator: coordinator)
 }
 
 // MARK: - Preview Helper

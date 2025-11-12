@@ -12,24 +12,10 @@ public struct CryptoRowView: View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 // Crypto logo
-                AsyncImage(url: URL(string: crypto.imageUrl)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 40, height: 40)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                    case .failure:
-                        Image(systemName: "exclamationmark.triangle")
-                            .foregroundColor(.gray)
-                            .frame(width: 40, height: 40)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
+                CryptoImageView(
+                    imageURL: crypto.imageUrl,
+                    size: 40
+                )
 
                 // Symbol and Name
                 VStack(alignment: .leading, spacing: 4) {

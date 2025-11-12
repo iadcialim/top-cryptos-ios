@@ -22,6 +22,7 @@ struct TopCryptosApp: App {
     /// Creates the main view with all dependencies wired up
     /// This is where explicit dependency injection happens
     /// - Returns: Configured CryptoListView with all dependencies
+    @MainActor
     private func createCryptoListView() -> CryptoListView {
         // Configure base URL and API key
         let apiKey = "f631eea54fc842efa1d829b2cc1b7a71"
@@ -47,7 +48,10 @@ struct TopCryptosApp: App {
         // ViewModel layer
         let viewModel = CryptoListViewModel(getTopCryptosUseCase: useCase)
 
+        // Coordinator layer
+        let coordinator = CryptoCoordinator()
+
         // View layer
-        return CryptoListView(viewModel: viewModel)
+        return CryptoListView(viewModel: viewModel, coordinator: coordinator)
     }
 }

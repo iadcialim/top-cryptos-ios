@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a cryptocurrency in the market
-public struct Crypto: Identifiable {
+public struct Crypto: Identifiable, Hashable {
     public let id: Int
     public let name: String
     public let symbol: String

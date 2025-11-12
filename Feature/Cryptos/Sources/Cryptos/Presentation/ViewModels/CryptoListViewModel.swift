@@ -24,7 +24,7 @@ public final class CryptoListViewModel {
     /// - Parameters:
     ///   - limit: Number of cryptocurrencies to fetch (default: 5)
     ///   - currency: Currency code for price conversion (default: defaultCurrency)
-    public func loadCryptocurrencies(limit: Int = 5, currency: String = CryptoConstants.defaultCurrency) async {
+    public func loadCryptos(limit: Int = 5, currency: String = CryptoConstants.defaultCurrency) async {
         isLoading = true
         errorMessage = nil
 
@@ -38,8 +38,8 @@ public final class CryptoListViewModel {
         isLoading = false
     }
 
-    /// Refreshes the Crypto list
+    /// Refreshes the cryptos
     public func refresh() async {
-        await loadCryptocurrencies()
+        await loadCryptos()
     }
 }
