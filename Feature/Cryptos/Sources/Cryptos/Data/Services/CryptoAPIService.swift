@@ -24,19 +24,41 @@ public final class CryptoAPIService: CryptoService {
     /// - Returns: Array of domain cryptocurrencies
     /// - Throws: NetworkError if request fails
     public func getTopCryptos(limit: Int, currency: String) async throws -> [Crypto] {
-        // Create request using router
-        let router = CryptoAPIRouter.topCryptos(limit: limit, currency: currency)
-        let apiRequest = CryptoAPIRequest(router: router, configuration: configuration)
+        // Step 1: Fetch cryptocurrency listings
+        let listingsRouter = CryptoAPIRouter.topCryptos(limit: limit, currency: currency)
+        let listingsRequest = CryptoAPIRequest(router: listingsRouter, configuration: configuration)
 
         do {
-            // Make request using Alamofire session directly
-            let response = try await session
-                .request(apiRequest)
+            let listingsResponse = try await session
+                .request(listingsRequest)
                 .validate(statusCode: 200..<300)
                 .serializingDecodable(CryptoResponseDto.self)
                 .value
 
-            return response.data.compactMap { $0.toDomain(currency: currency) }
+            // Step 2: Extract IDs and create initial domain models
+            let cryptoList = listingsResponse.data
+            let ids = cryptoList.map { String($0.id) }.joined(separator: ",")
+
+            // Step 3: Batch-fetch metadata to get crypto logos
+            let metadataRouter = CryptoAPIRouter.cryptoMetadata(ids: ids)
+            let metadataRequest = CryptoAPIRequest(router: metadataRouter, configuration: configuration)
+
+            let metadataResponse = try await session
+                .request(metadataRequest)
+                .validate(statusCode: 200..<300)
+                .serializingDecodable(CryptoMetadataResponseDto.self)
+                .value
+
+            // Step 4: Merge data by ID - map to domain models with logo URLs
+            let cryptos = cryptoList.compactMap { cryptoDto -> Crypto? in
+                let metadata = metadataResponse.data[String(cryptoDto.id)]
+                let imageUrl = metadata?.logo ?? ""
+                // Convert to domain model with the logo
+                return cryptoDto.toDomain(currency: currency, imageUrl: imageUrl) ?? nil
+            }
+
+            return cryptos
+
         } catch let error as AFError {
             throw mapAFError(error)
         } catch {

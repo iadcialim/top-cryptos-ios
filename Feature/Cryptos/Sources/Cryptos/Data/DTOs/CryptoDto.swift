@@ -38,7 +38,7 @@ struct CryptoDto: Decodable {
     /// Maps DTO to domain entity using specified currency
     /// - Parameter currency: Currency code to extract from quote (default: defaultCurrency)
     /// - Returns: Crypto domain entity
-    func toDomain(currency: String = CryptoConstants.defaultCurrency) -> Crypto? {
+    func toDomain(currency: String, imageUrl: String) -> Crypto? {
         guard let quoteData = quote[currency] else {
             return nil
         }
@@ -50,7 +50,8 @@ struct CryptoDto: Decodable {
             price: quoteData.price,
             percentChange24h: quoteData.percent_change_24h ?? 0.0,
             marketCap: 0.0,
-            rank: cmc_rank
+            rank: cmc_rank,
+            imageUrl: imageUrl
         )
     }
 }

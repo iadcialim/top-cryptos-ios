@@ -9,6 +9,7 @@ public struct Crypto: Identifiable {
     public let percentChange24h: Double
     public let marketCap: Double
     public let rank: Int
+    public let imageUrl: String
 
     public init(
         id: Int,
@@ -17,7 +18,8 @@ public struct Crypto: Identifiable {
         price: Double,
         percentChange24h: Double,
         marketCap: Double,
-        rank: Int
+        rank: Int,
+        imageUrl: String
     ) {
         self.id = id
         self.name = name
@@ -26,5 +28,6 @@ public struct Crypto: Identifiable {
         self.percentChange24h = percentChange24h
         self.marketCap = marketCap
         self.rank = rank
+        self.imageUrl = imageUrl
     }
 }

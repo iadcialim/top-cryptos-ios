@@ -6,7 +6,7 @@ import Networking
 /// Handles endpoint paths, parameters, and request construction
 enum CryptoAPIRouter: URLRequestConvertible {
     case topCryptos(limit: Int, currency: String)
-    case cryptoInfo(id: String) // Future: for getting logo, etc.
+    case cryptoMetadata(ids: String)
 
     // MARK: - Properties
 
@@ -28,7 +28,7 @@ enum CryptoAPIRouter: URLRequestConvertible {
         switch self {
         case .topCryptos:
             return "/v1/cryptocurrency/listings/latest"
-        case .cryptoInfo:
+        case .cryptoMetadata:
             return "/v2/cryptocurrency/info"
         }
     }
@@ -36,7 +36,7 @@ enum CryptoAPIRouter: URLRequestConvertible {
     /// HTTP method for the request
     var method: HTTPMethod {
         switch self {
-        case .topCryptos, .cryptoInfo:
+        case .topCryptos, .cryptoMetadata:
             return .get
         }
     }
@@ -49,8 +49,8 @@ enum CryptoAPIRouter: URLRequestConvertible {
                 "limit": limit,
                 "convert": currency
             ]
-        case .cryptoInfo(let id):
-            return ["id": id]
+        case .cryptoMetadata(let ids):
+            return ["id": ids]
         }
     }
 
