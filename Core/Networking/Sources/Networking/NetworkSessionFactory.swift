@@ -23,7 +23,8 @@ public enum NetworkSessionFactory {
         // Use provided cache or create default
         let cache = urlCache ?? URLCache(
             memoryCapacity: 10 * 1024 * 1024, // 10 MB memory cache
-            diskCapacity: 50 * 1024 * 1024     // 50 MB disk cache
+            diskCapacity: 50 * 1024 * 1024,   // 50 MB disk cache
+            diskPath: nil
         )
         configuration.urlCache = cache
         configuration.requestCachePolicy = .useProtocolCachePolicy
